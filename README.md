@@ -1,7 +1,6 @@
 # tmc-4671
-TMC 4671 driver for Klipper
 
-*NOTE: This is a beta driver! While it does work, it is only lightly tested, and the setup process in particular is not well tested.*
+*Forked from [andrewmcgr](https://github.com/andrewmcgr)'s TMC 4671 driver for klipper. The changes in this fork are specific to my application and not made/approved by the original author. You should use the [original repository](https://github.com/andrewmcgr/tmc-4671) unless you know exactly what you're doing and have examined my commits closely.*
 
 The [TMC 4671](https://www.analog.com/media/en/technical-documentation/data-sheets/TMC4671-LA_datasheet_rev2.08.pdf)
 is a closed-loop field-oriented-control servo driver for brushed and brushless DC motors and stepper motors.
@@ -19,6 +18,12 @@ Supported hardware:
     * On-board thermistor for output MOSFET temnperature monitoring
   * Ouroboros by Isik's Tech
     * This board can drive *two* of all kinds of motors, including steppers.
+  * Super secret prototype Vayl Industries Printer Mainboard
+    * This board can drive *five* of all kinds of motors, including steppers.
+	* 20 A 60 V limits
+	* Integrated brake resistors
+    * Integrated temperature sensing for MOSFETs and brake resistors	
+	* Absolutely overkill and will probably never be publicly released
 * Encoders
   * ABZ and AB encoders, voltages as supported by the driver board (most common types work)
     * 6-wire AB encoders with differential outputs work if wired correctly to the driver board. Integrated encoders in LDO motors are of this type, and are tested.
