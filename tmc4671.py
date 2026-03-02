@@ -1128,6 +1128,7 @@ class CurrentHelper:
                                               default=0.)
         self.current_scale = config.getfloat('current_scale_ma_lsb', 1.272,
                                        above=0., maxval=10)
+        self.invert_current_sense = config.getboolean('invert_current_sense', False)
         self.flux_limit = self._calc_flux_limit(self.run_current)
         self.fields.set_field("PID_TORQUE_FLUX_LIMITS", self.flux_limit)
         self.flux_limit = self._calc_flux_limit(self.flux_current)
@@ -1830,8 +1831,16 @@ class TMC4671:
         #self._write_field("CFG_ADC_I1", 0)
         #self._write_field("ADC_I1_SCALE", (256*(i1_h-i1_l))//32768)
         #self._write_field("ADC_I0_SCALE", (256*(i0_h-i0_l))//32768)
-        self._write_field("ADC_I1_SCALE", 256)
-        self._write_field("ADC_I0_SCALE", 256)
+        
+        # Old, defaults to positive current
+        #self._write_field("ADC_I1_SCALE", 256)
+        #self._write_field("ADC_I0_SCALE", 256)
+        
+        # Invert current scale if config says so
+        adc_scale = -256 if self.current_helper.invert_current_sense else 256
+        self._write_field("ADC_I1_SCALE", adc_scale)
+        self._write_field("ADC_I0_SCALE", adc_scale)
+        
         self._write_field("ADC_I1_OFFSET", i1_off)
         self._write_field("ADC_I0_OFFSET", i0_off)
         # Calibrate for VM measurement
